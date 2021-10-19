@@ -7,6 +7,8 @@
 # 
 # Authors: Pei Xu (peix@g.clemson.edu) and Ioannis Karamouzas (ioannis@g.clemson.edu)
 #
+# Group Members: Ross Brown, Jack Harrison
+#
 
 """
 In this assignment, the task is to implement the minimax algorithm with depth
