@@ -286,30 +286,30 @@ def alphabeta(player, board, depth_limit):
 
 ### Please finish the code below ##############################################
 ###############################################################################
-    def value(player, board, depth_limit):
+    def value(player, board, depth_limit, alpha=-math.inf, beta=math.inf):
         if depth_limit == 0:
             return evaluate(player, board)
         next = board.PLAYER2 if player == board.PLAYER1 else board.PLAYER1
         if (next == max_player):
-            return max_value(player, board, depth_limit)
+            return max_value(player, board, depth_limit, alpha, beta)
         else:
-            return min_value(player, board, depth_limit)
+            return min_value(player, board, depth_limit, alpha, beta)
 
-    def max_value(player, board, depth_limit):
+    def max_value(player, board, depth_limit, alpha, beta):
         children = get_child_boards(player, board)
         v = -math.inf
         for ch in children:
-            v = max(v, value(player, ch[1], depth_limit - 1))
+            v = max(v, value(player, ch[1], depth_limit - 1, alpha, beta))
             if v >= beta:
                 return v
             alpha = max(alpha, v)
         return v
     
-    def min_value(player, board, depth_limit):
+    def min_value(player, board, depth_limit, alpha, beta):
         children = get_child_boards(player, board)
         v = math.inf
         for ch in children:
-            v = min(v, value(player, ch[1], depth_limit - 1))
+            v = min(v, value(player, ch[1], depth_limit - 1, alpha, beta))
             if v <= alpha:
                 return v
             beta = min(beta, v)
@@ -317,9 +317,6 @@ def alphabeta(player, board, depth_limit):
 
     next_player = board.PLAYER2 if player == board.PLAYER1 else board.PLAYER1
     score = -math.inf
-
-    alpha = -math.inf
-    beta = math.inf
 
     top_children = get_child_boards(player, board)
     v = -math.inf
