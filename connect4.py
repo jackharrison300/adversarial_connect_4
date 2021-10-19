@@ -366,7 +366,7 @@ def expectimax(player, board, depth_limit):
         if (next == max_player):
             return max_value(next, board, depth_limit)
         else:  # Environmental, probability based weighted-avg
-           return min_value(next, board, depth_limit)
+           return exp_value(next, board, depth_limit)
 
     def max_value(player, board, depth_limit):
         children = get_child_boards(player, board)
@@ -375,7 +375,7 @@ def expectimax(player, board, depth_limit):
             v = max(v, value(player, ch[1], depth_limit - 1))
         return v
     
-    def min_value(player, board, depth_limit):
+    def exp_value(player, board, depth_limit):
         # Probability based weighted-average of next values
         # SUMPRODUCT([probabilities], [values]) / SUM([probabilities])
         children = get_child_boards(player, board)
