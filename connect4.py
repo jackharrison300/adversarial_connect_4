@@ -285,16 +285,47 @@ def alphabeta(player, board, depth_limit):
 ### Please finish the code below ##############################################
 ###############################################################################
     def value(player, board, depth_limit):
-        pass
+        if depth_limit == 0:
+            return evaluate(player, board)
+        next = board.PLAYER2 if player == board.PLAYER1 else board.PLAYER1
+        if (next == max_player):
+            return max_value(player, board, depth_limit)
+        else:
+            return min_value(player, board, depth_limit)
 
     def max_value(player, board, depth_limit):
-        pass
+        children = get_child_boards(player, board)
+        v = -math.inf
+        for ch in children:
+            v = max(v, value(player, ch[1], depth_limit - 1))
+            if v >= beta:
+                return v
+            alpha = max(alpha, v)
+        return v
     
     def min_value(player, board, depth_limit):
-        pass
+        children = get_child_boards(player, board)
+        v = math.inf
+        for ch in children:
+            v = min(v, value(player, ch[1], depth_limit - 1))
+            if v <= alpha:
+                return v
+            beta = min(beta, v)
+        return v
 
     next_player = board.PLAYER2 if player == board.PLAYER1 else board.PLAYER1
     score = -math.inf
+
+    alpha = -math.inf
+    beta = math.inf
+
+    top_children = get_child_boards(player, board)
+    v = -math.inf
+    for ch in top_children:
+        temp = value(player, ch[1], depth_limit - 1)
+        if temp > v:
+            placement = ch[0]
+            v = temp
 ###############################################################################
     return placement
 
