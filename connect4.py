@@ -222,12 +222,12 @@ def minimax(player, board, depth_limit):
 ###############################################################################
     def value(player, board, depth_limit):
         if depth_limit == 0:
-            return evaluate(player, board)
+            return evaluate(max_player, board)
         next = board.PLAYER2 if player == board.PLAYER1 else board.PLAYER1
         if (next == max_player):
-            return max_value(player, board, depth_limit)
+            return max_value(next, board, depth_limit)
         else:
-           return min_value(player, board, depth_limit) 
+            return min_value(next, board, depth_limit) 
 
     def max_value(player, board, depth_limit):
         children = get_child_boards(player, board)
@@ -286,30 +286,30 @@ def alphabeta(player, board, depth_limit):
 
 ### Please finish the code below ##############################################
 ###############################################################################
-    def value(player, board, depth_limit, alpha=-math.inf, beta=math.inf):
+    def value(player, board, depth_limit):
         if depth_limit == 0:
-            return evaluate(player, board)
+            return evaluate(max_player, board)
         next = board.PLAYER2 if player == board.PLAYER1 else board.PLAYER1
         if (next == max_player):
-            return max_value(player, board, depth_limit, alpha, beta)
+            return max_value(next, board, depth_limit)
         else:
-            return min_value(player, board, depth_limit, alpha, beta)
+            return min_value(next, board, depth_limit)
 
-    def max_value(player, board, depth_limit, alpha, beta):
+    def max_value(player, board, depth_limit):
         children = get_child_boards(player, board)
         v = -math.inf
         for ch in children:
-            v = max(v, value(player, ch[1], depth_limit - 1, alpha, beta))
+            v = max(v, value(player, ch[1], depth_limit - 1))
             if v >= beta:
                 return v
             alpha = max(alpha, v)
         return v
     
-    def min_value(player, board, depth_limit, alpha, beta):
+    def min_value(player, board, depth_limit):
         children = get_child_boards(player, board)
         v = math.inf
         for ch in children:
-            v = min(v, value(player, ch[1], depth_limit - 1, alpha, beta))
+            v = min(v, value(player, ch[1], depth_limit - 1))
             if v <= alpha:
                 return v
             beta = min(beta, v)
@@ -317,6 +317,9 @@ def alphabeta(player, board, depth_limit):
 
     next_player = board.PLAYER2 if player == board.PLAYER1 else board.PLAYER1
     score = -math.inf
+
+    alpha = -math.inf
+    beta = math.inf
 
     top_children = get_child_boards(player, board)
     v = -math.inf
@@ -361,12 +364,12 @@ def expectimax(player, board, depth_limit):
 ###############################################################################
     def value(player, board, depth_limit):
         if depth_limit == 0:
-            return evaluate(player, board)
+            return evaluate(max_player, board)
         next = board.PLAYER2 if player == board.PLAYER1 else board.PLAYER1
         if (next == max_player):
-            return max_value(player, board, depth_limit)
+            return max_value(next, board, depth_limit)
         else:  # Environmental, probability based weighted-avg
-           return min_value(player, board, depth_limit)
+           return min_value(next, board, depth_limit)
 
     def max_value(player, board, depth_limit):
         children = get_child_boards(player, board)
