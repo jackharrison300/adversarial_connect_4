@@ -222,12 +222,12 @@ def minimax(player, board, depth_limit):
 ###############################################################################
     def value(player, board, depth_limit):
         if depth_limit == 0:
-            return evaluate(player, board)
+            return evaluate(max_player, board)
         next = board.PLAYER2 if player == board.PLAYER1 else board.PLAYER1
         if (next == max_player):
-            return max_value(player, board, depth_limit)
+            return max_value(next, board, depth_limit)
         else:
-           return min_value(player, board, depth_limit) 
+            return min_value(next, board, depth_limit) 
 
     def max_value(player, board, depth_limit):
         children = get_child_boards(player, board)
@@ -288,12 +288,12 @@ def alphabeta(player, board, depth_limit):
 ###############################################################################
     def value(player, board, depth_limit):
         if depth_limit == 0:
-            return evaluate(player, board)
+            return evaluate(max_player, board)
         next = board.PLAYER2 if player == board.PLAYER1 else board.PLAYER1
         if (next == max_player):
-            return max_value(player, board, depth_limit)
+            return max_value(next, board, depth_limit)
         else:
-            return min_value(player, board, depth_limit)
+            return min_value(next, board, depth_limit)
 
     def max_value(player, board, depth_limit):
         children = get_child_boards(player, board)
@@ -364,12 +364,12 @@ def expectimax(player, board, depth_limit):
 ###############################################################################
     def value(player, board, depth_limit):
         if depth_limit == 0:
-            return evaluate(player, board)
+            return evaluate(max_player, board)
         next = board.PLAYER2 if player == board.PLAYER1 else board.PLAYER1
         if (next == max_player):
-            return max_value(player, board, depth_limit)
+            return max_value(next, board, depth_limit)
         else:  # Environmental, probability based weighted-avg
-           return min_value(player, board, depth_limit)
+           return min_value(next, board, depth_limit)
 
     def max_value(player, board, depth_limit):
         children = get_child_boards(player, board)
