@@ -320,11 +320,16 @@ def alphabeta(player, board, depth_limit):
 
     top_children = get_child_boards(player, board)
     v = -math.inf
+    alpha = -math.inf
+    beta = math.inf
     for ch in top_children:
-        temp = value(player, ch[1], depth_limit - 1)
+        temp = value(player, ch[1], depth_limit - 1, alpha, beta)
         if temp > v:
             placement = ch[0]
             v = temp
+        if v >= beta:
+            return v
+        alpha = max(alpha, v)
 ###############################################################################
     return placement
 
