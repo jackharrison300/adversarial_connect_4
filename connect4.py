@@ -327,8 +327,6 @@ def alphabeta(player, board, depth_limit):
         if temp > v:
             placement = ch[0]
             v = temp
-        if v >= beta:
-            return v
         alpha = max(alpha, v)
 ###############################################################################
     return placement
